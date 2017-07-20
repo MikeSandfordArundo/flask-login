@@ -158,7 +158,7 @@ class LoginManager(object):
         if request.blueprint in self.blueprint_login_views:
             login_view = self.blueprint_login_views[request.blueprint]
         elif self.login_callable:
-            login_view = self.login_callable
+            login_view = self.login_callable()
         else:
             login_view = self.login_view
 
