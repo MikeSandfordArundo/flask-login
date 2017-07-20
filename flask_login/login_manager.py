@@ -42,6 +42,10 @@ class LoginManager(object):
         #: machinery is external to your application.)
         self.login_view = None
 
+        #: The name of the callable that will generate a URL when a user
+        #: needs to login.  You can either use this is login_view
+        self.login_callable = None
+
         #: Names of views to redirect to when the user needs to log in,
         #: per blueprint. If the key value is set to None the value of
         #: :attr:`login_view` will be used instead.
@@ -153,6 +157,8 @@ class LoginManager(object):
 
         if request.blueprint in self.blueprint_login_views:
             login_view = self.blueprint_login_views[request.blueprint]
+        elif self.login_callable:
+            login_view = self.login_callable
         else:
             login_view = self.login_view
 
